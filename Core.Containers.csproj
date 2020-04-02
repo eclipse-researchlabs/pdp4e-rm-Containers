@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Implementation\Helpers\**" />
+    <EmbeddedResource Remove="Implementation\Helpers\**" />
+    <None Remove="Implementation\Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Database\Core.Database.csproj" />
+  </ItemGroup>
+
 </Project>
