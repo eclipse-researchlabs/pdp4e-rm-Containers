@@ -12,19 +12,19 @@ namespace Core.Containers.Implementation.CommandHandlers
 {
     public class DeleteContainerCommandHandler : IRequestHandler<DeleteContainerCommand, bool>
     {
-        private IBeawreContext _beawreContext;
+        private IDatabaseContext _databaseContext;
 
-        public DeleteContainerCommandHandler(IBeawreContext beawreContext)
+        public DeleteContainerCommandHandler(IDatabaseContext databaseContext)
         {
-            _beawreContext = beawreContext;
+            _databaseContext = databaseContext;
         }
 
         public Task<bool> Handle(DeleteContainerCommand request, CancellationToken cancellationToken)
         {
-            var container = _beawreContext.Container.FirstOrDefault(x => x.RootId == request.Id);
+            var container = _databaseContext.Container.FirstOrDefault(x => x.RootId == request.Id);
                 if(container == null) throw new Exception("ReturnCode.ContainerNotFound");
             container.IsDeleted = true;
-            _beawreContext.SaveChanges();
+            _databaseContext.SaveChanges();
 
             return Task.FromResult(true);
         }
